@@ -6,7 +6,7 @@ Because idk, it all started with a stupid idea of how our contiousness started o
 when I saw it was "working" I thought why not add some graphics and visuals to see what the network was doing,
 and that ended up as attempt 1 written in C++ (this attempt was also producing what one would call a constant seizure, forcing neurons to not end up on a constant state, mostly for the visuals).
 
-# What the current attempt?
+# What's the current attempt?
 The current attempt (2) will try and achieve a neuron that grows outwards, which will later achieve synapses in attempt 3.
 
 # Attempt 1
