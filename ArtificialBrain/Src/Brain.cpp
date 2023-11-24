@@ -59,7 +59,7 @@ size_t Brain::Tick()
 		{
 			b.NextValue   += a.Value * con.StrengthA;
 			deltaStrengthA = (0.8f - con.StrengthA) * RandFloat(0.0f, 0.001f);
-			float force    = RandFloat(0.0f, 0.0001f);
+			float force    = RandFloat(0.0f, 0.001f);
 			deltaMinA      = (a.Value - con.BiasMinA) * force;
 			deltaMaxA      = (a.Value - con.BiasMaxA) * force;
 		}
@@ -74,7 +74,7 @@ size_t Brain::Tick()
 		{
 			a.NextValue   += b.Value * con.StrengthB;
 			deltaStrengthB = (0.8f - con.StrengthB) * RandFloat(0.0f, 0.001f);
-			float force    = RandFloat(0.0f, 0.0001f);
+			float force    = RandFloat(0.0f, 0.001f);
 			deltaMinB      = (b.Value - con.BiasMinB) * force;
 			deltaMaxB      = (b.Value - con.BiasMaxB) * force;
 		}
