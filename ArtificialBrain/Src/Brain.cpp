@@ -39,7 +39,8 @@ size_t Brain::Tick()
 
 	for (auto& neuron : m_Neurons)
 	{
-		neuron.Value     = std::min(neuron.NextValue, 1.0f); // / (neuron.Connections.empty() ? 1.0f : neuron.MaxStrength);
+		neuron.Value = /*std::min(neuron.NextValue, 1.0f);*/ neuron.NextValue / (neuron.Connections.empty() ? 1.0f : neuron.MaxStrength);
+		;
 		neuron.NextValue = 0.0f;
 		if (neuron.CanConnect && neuron.Value != 0.0f)
 			++neuron.ConnectTick;
@@ -58,30 +59,30 @@ size_t Brain::Tick()
 		if (a.Value >= con.BiasMinA && a.Value <= con.BiasMaxA)
 		{
 			b.NextValue   += a.Value * con.StrengthA;
-			deltaStrengthA = (0.8f - con.StrengthA) * RandFloat(0.0f, 0.001f);
-			float force    = RandFloat(0.0f, 0.001f);
+			deltaStrengthA = (1.0f - con.StrengthA) * RandFloat(0.0f, 0.01f);
+			float force    = RandFloat(0.0f, 0.002f);
 			deltaMinA      = (a.Value - con.BiasMinA) * force;
 			deltaMaxA      = (a.Value - con.BiasMaxA) * force;
 		}
 		else
 		{
-			deltaStrengthA = (0.05f - con.StrengthA) * RandFloat(0.0f, 0.0005f);
-			float force    = RandFloat(0.0f, 0.0005f);
+			deltaStrengthA = (0.05f - con.StrengthA) * RandFloat(0.0f, 0.005f);
+			float force    = RandFloat(0.0f, 0.002f);
 			deltaMinA      = (-0.1f - con.BiasMinA) * force;
 			deltaMaxA      = (1.1f - con.BiasMaxA) * force;
 		}
 		if (b.Value >= con.BiasMinB && b.Value <= con.BiasMaxB)
 		{
 			a.NextValue   += b.Value * con.StrengthB;
-			deltaStrengthB = (0.8f - con.StrengthB) * RandFloat(0.0f, 0.001f);
-			float force    = RandFloat(0.0f, 0.001f);
+			deltaStrengthB = (1.0f - con.StrengthB) * RandFloat(0.0f, 0.01f);
+			float force    = RandFloat(0.0f, 0.002f);
 			deltaMinB      = (b.Value - con.BiasMinB) * force;
 			deltaMaxB      = (b.Value - con.BiasMaxB) * force;
 		}
 		else
 		{
-			deltaStrengthB = (0.05f - con.StrengthB) * RandFloat(0.0f, 0.0005f);
-			float force    = RandFloat(0.0f, 0.0005f);
+			deltaStrengthB = (0.05f - con.StrengthB) * RandFloat(0.0f, 0.005f);
+			float force    = RandFloat(0.0f, 0.002f);
 			deltaMinB      = (-0.1f - con.BiasMinB) * force;
 			deltaMaxB      = (1.1f - con.BiasMaxB) * force;
 		}
@@ -190,8 +191,8 @@ void Brain::AddConnection(Neuron& a, Neuron& b)
 	con.BiasMinB   = RandFloat(-0.1f, 1.1f);
 	con.BiasMaxA   = RandFloat(-0.1f, 1.1f);
 	con.BiasMaxB   = RandFloat(-0.1f, 1.1f);
-	con.StrengthA  = RandFloat(0.05f, 0.8f);
-	con.StrengthB  = RandFloat(0.05f, 0.8f);
+	con.StrengthA  = RandFloat(0.05f, 1.0f);
+	con.StrengthB  = RandFloat(0.05f, 1.0f);
 	a.MaxStrength += con.StrengthB;
 	b.MaxStrength += con.StrengthA;
 }
